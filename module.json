@@ -13,5 +13,7 @@
 	],
 	"packs": [],
 	"styles": [],
-	"url": "https://github.com/Yidna/fvtt-slotted-inventory"
+	"url": "https://github.com/Yidna/fvtt-slotted-inventory",
+	"manifest": "https://github.com/Yidna/fvtt-slotted-inventory/raw/master/module.json",
+	"download": "https://github.com/Yidna/fvtt-slotted-inventory/archive/refs/heads/master.zip"
 }
