@@ -7,7 +7,10 @@
 	"compatibleCoreVersion": "0.7.9",
 	"author": "Yidna",
 	"systems": ["dnd5e"],
-	"scripts": [],
+	"esmodules": [
+		"./src/index.js",
+		"./src/slotted-inventory-sheet.js"
+	],
 	"packs": [],
 	"styles": [],
 	"url": "https://github.com/Yidna/fvtt-slotted-inventory"
