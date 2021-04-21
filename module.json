@@ -1,0 +1,15 @@
+{
+	"name": "slotted-inventory",
+	"title": "Slotted Inventory",
+	"description": "This module provides an alternative character sheet with a slotted inventory system",
+	"version": "0.0.1",
+	"minimumCoreVersion": "0.7.9",
+	"compatibleCoreVersion": "0.7.9",
+	"author": "Yidna",
+	"systems": ["dnd5e"],
+	"scripts": [],
+	"packs": [],
+	"styles": [],
+	"url": "https://github.com/Yidna/fvtt-slotted-inventory",
+	"manifest": "https://raw.githubusercontent.com/Yidna/fvtt-slotted-inventory/master/module.json"
+}
