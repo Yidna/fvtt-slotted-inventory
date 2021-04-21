@@ -1,5 +1,5 @@
 {
-	"name": "slotted-inventory",
+	"name": "fvtt-slotted-inventory",
 	"title": "Slotted Inventory",
 	"description": "This module provides an alternative character sheet with a slotted inventory system",
 	"version": "0.0.1",
@@ -10,6 +10,5 @@
 	"scripts": [],
 	"packs": [],
 	"styles": [],
-	"url": "https://github.com/Yidna/fvtt-slotted-inventory",
-	"manifest": "https://raw.githubusercontent.com/Yidna/fvtt-slotted-inventory/master/module.json"
+	"url": "https://github.com/Yidna/fvtt-slotted-inventory"
 }
