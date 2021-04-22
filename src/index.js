@@ -23,3 +23,10 @@ Hooks.on('ready', () => {
         FlagManager.setInventory(player, cleanInventory(player, inventory));
     });
 });
+
+Hooks.on('createActor', actor => {
+    if (actor.data.type !== 'character') {
+        return;
+    }
+    migrate(actor);
+})

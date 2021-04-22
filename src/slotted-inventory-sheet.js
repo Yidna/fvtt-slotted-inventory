@@ -72,6 +72,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
 
     getData() {
         const currentInventory = FlagManager.getInventory(this.actor);
+        if (!currentInventory) {
+            return super.getData();
+        }
         return {
             ...super.getData(),
             inventory: Object.keys(currentInventory).reduce((inventory, key) => {
