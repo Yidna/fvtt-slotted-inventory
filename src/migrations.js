@@ -1,5 +1,5 @@
 import { v0_0_0 } from './migrations/v0_0_0__initialize-inventory-system.js';
-import { FlagManager } from './flag-manager';
+import { FlagManager } from './flag-manager.js';
 
 export async function migrate(player) {
     const migrationFns = [{

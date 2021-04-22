@@ -11,7 +11,7 @@ export class FlagManager {
     }
 
     static setInventory(actor, inventory) {
-        return actor.setFlags(FlagManager.FLAG_NAMESPACE, FlagManager.Flags.INVENTORY, inventory);
+        return actor.setFlag(FlagManager.FLAG_NAMESPACE, FlagManager.Flags.INVENTORY, inventory);
     }
 
     static getVersion(actor) {
@@ -19,6 +19,6 @@ export class FlagManager {
     }
 
     static setVersion(actor, version) {
-        return actor.setFlags(FlagManager.FLAG_NAMESPACE, FlagManager.Flags.VERSION, version);
+        return actor.setFlag(FlagManager.FLAG_NAMESPACE, FlagManager.Flags.VERSION, version);
     }
 }

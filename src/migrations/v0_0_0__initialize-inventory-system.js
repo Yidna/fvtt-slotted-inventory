@@ -1,4 +1,4 @@
-import { FlagManager } from '../flag-manager';
+import { FlagManager } from '../flag-manager.js';
 
 export async function v0_0_0(player) {
     const defaultInventory = {
