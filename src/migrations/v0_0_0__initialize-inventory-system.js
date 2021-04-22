@@ -1,4 +1,6 @@
-export async function v0_0_0(player, flagInfo) {
+import { FlagManager } from '../flag-manager';
+
+export async function v0_0_0(player) {
     const defaultInventory = {
         head: {
             label: 'Head',
@@ -93,8 +95,8 @@ export async function v0_0_0(player, flagInfo) {
             slots: player.data.items.map(item => new Slot('', '', item._id))
         }
     };
-    return player.setFlag(flagInfo.FLAG_NAMESPACE, flagInfo.Flags.VERSION, flagInfo.CURRENT_VERSION).then(player =>
-        player.setFlag(flagInfo.FLAG_NAMESPACE, flagInfo.Flags.INVENTORY, defaultInventory)
+    return FlagManager.setVersion(player, '0.0.1').then(player =>
+        FlagManager.setInventory(player, defaultInventory)
     );
 }
 

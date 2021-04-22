@@ -10,9 +10,9 @@ Hooks.on('init', () => {
     loadTemplates([
         'modules/fvtt-slotted-inventory/src/templates/partials/actor-inventory.html'
     ])
-})
+});
 
 Hooks.on('ready', () => {
     const players = game.actors.entities.filter(actor => actor.data.type === 'character');
     players.forEach(player => migrate(player));
-})
+});

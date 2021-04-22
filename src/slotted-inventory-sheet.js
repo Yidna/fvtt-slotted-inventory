@@ -1,4 +1,5 @@
 import ActorSheet5eCharacter from '../../../systems/dnd5e/module/actor/sheets/character.js'
+import { FlagManager } from './flag-manager';
 
 export class SlottedInventorySheet extends ActorSheet5eCharacter {
     get template() {
@@ -7,13 +8,13 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
     }
 
     getData() {
-        const slottedInventory = this.actor.getFlag('fvtt-slotted-inventory', 'inventory');
+        const currentInventory = FlagManager.getInventory(this.actor);
         return {
             ...super.getData(),
-            inventory: Object.keys(slottedInventory).reduce((inventory, key) => {
+            inventory: Object.keys(currentInventory).reduce((inventory, key) => {
                 inventory[key] = {
-                    ...slottedInventory[key],
-                    slots: slottedInventory[key].slots.map(slot => ({
+                    ...currentInventory[key],
+                    slots: currentInventory[key].slots.map(slot => ({
                         ...slot,
                         item: this.actor.items.get(slot.item)?.data
                     }))
