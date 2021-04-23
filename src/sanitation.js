@@ -38,7 +38,7 @@ function trimOverflow(player, inventory) {
 function recoverOrphans(player, inventory) {
     const listifiedInventory = Object.keys(inventory).reduce((list, key) => {
         return list.concat(inventory[key].slots)
-    }, []);
+    }, []).map(slot => slot.item);
     const orphanedItems = Array.from(player.items.values())
         .map(item => item._id)
         .filter(item => !listifiedInventory.includes(item));
