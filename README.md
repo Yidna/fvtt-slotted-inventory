@@ -1,13 +1,13 @@
 # Slotted Inventory (5e)
 
-###(Work in Progress)
+### (Work in Progress)
 
 A 5e slotted inventory sheet for FoundryVTT commissioned by 12TripleAce12#2200.
 
 This module modifies the default DND5e character sheet to phase out encumbrance and instead
 utilize a slot-based system.
 
-###Installation 
+### Installation 
 
 To install a module, follow these instructions:
 
