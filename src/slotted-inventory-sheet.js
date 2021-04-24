@@ -70,6 +70,16 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         };
     }
 
+    _onItemDelete(event) {
+        Hooks.once('deleteOwnedItem', (actor) => {
+            if (actor.id !== this.actor.id) {
+                return;
+            }
+            FlagManager.setInventory(this.actor, cleanInventory(this.actor, FlagManager.getInventory(this.actor)));
+        });
+        super._onItemDelete(event);
+    }
+
     getData() {
         const currentInventory = FlagManager.getInventory(this.actor);
         if (!currentInventory) {

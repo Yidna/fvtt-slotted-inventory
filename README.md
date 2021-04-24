@@ -14,6 +14,10 @@ To install a module, follow these instructions:
 1. Review the [FoundryVTT Wiki for installing modules](https://foundryvtt.wiki/en/basics/Modules)
 2. Provide the following manifest url: https://github.com/Yidna/fvtt-slotted-inventory/raw/master/module.json
 
+### Compatibility Notes
+- the inventory overflow section will not automatically shrink when an item is deleted if
+  MidiQOL's delete confirmation dialog is enabled
+
 ### Feedback
 
 If you have any suggestions or feedback, feel free to create an [Issue on Github](https://github.com/Yidna/fvtt-simple-chat-damage-buttons/issues)

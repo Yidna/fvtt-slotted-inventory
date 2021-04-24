@@ -29,4 +29,4 @@ Hooks.on('createActor', actor => {
         return;
     }
     migrate(actor);
-})
+});
