@@ -15,17 +15,16 @@ Hooks.on('init', () => {
 });
 
 Hooks.on('ready', () => {
-    const players = game.actors.entities.filter(actor => actor.data.type === 'character');
+    const players = game.actors.entities.filter(actor => actor.data.type === 'character' && actor.owner);
     players.forEach(player => migrate(player));
     players.forEach(player => {
         const inventory = FlagManager.getInventory(player);
-        console.log(cleanInventory(player, inventory));
         FlagManager.setInventory(player, cleanInventory(player, inventory));
     });
 });
 
 Hooks.on('createActor', actor => {
-    if (actor.data.type !== 'character') {
+    if (actor.data.type !== 'character' || !actor.owner) {
         return;
     }
     migrate(actor);
