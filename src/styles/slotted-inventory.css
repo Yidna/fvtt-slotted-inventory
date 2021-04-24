@@ -1,0 +1,28 @@
+li.item > .item-slot-details {
+    flex: none;
+    max-width: 128px;
+    text-align: right;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+li.item > .slot-placeholder {
+    height: 30px;
+}
+
+li.item > .item-name > h4 {
+    text-overflow: ellipsis;
+}
+
+div.item-list-wrapper {
+    overflow: auto;
+}
+
+ol.inventory-list {
+    column-count: 3;
+    column-width: 300px;
+}
+
+ol.inventory-list > li {
+    break-inside: avoid;
+}

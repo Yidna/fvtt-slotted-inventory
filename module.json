@@ -2,7 +2,7 @@
 	"name": "fvtt-slotted-inventory",
 	"title": "Slotted Inventory",
 	"description": "This module provides an alternative character sheet with a slotted inventory system",
-	"version": "0.0.8",
+	"version": "0.1.0",
 	"minimumCoreVersion": "0.7.9",
 	"compatibleCoreVersion": "0.7.9",
 	"author": "Yidna",
@@ -11,7 +11,9 @@
 		"./src/index.js"
 	],
 	"packs": [],
-	"styles": [],
+	"styles": [
+		"./src/styles/slotted-inventory.css"
+	],
 	"url": "https://github.com/Yidna/fvtt-slotted-inventory",
 	"manifest": "https://github.com/Yidna/fvtt-slotted-inventory/raw/master/module.json",
 	"download": "https://github.com/Yidna/fvtt-slotted-inventory/archive/refs/heads/master.zip"
