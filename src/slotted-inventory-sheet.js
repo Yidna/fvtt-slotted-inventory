@@ -1,6 +1,6 @@
 import ActorSheet5eCharacter from '../../../systems/dnd5e/module/actor/sheets/character.js'
 import { FlagManager } from './flag-manager.js';
-import { cleanInventory } from './sanitation.js';
+import { cleanInventory, disallowedItemTypes } from './sanitation.js';
 
 export class SlottedInventorySheet extends ActorSheet5eCharacter {
     get template() {
@@ -21,6 +21,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
     }
 
     async _onDropItem(event, itemData) {
+        if (this._tabs[0].active !== "inventory") {
+            return super._onDropItem(event, itemData);
+        }
         const sourceSlot = JSON.parse(event.dataTransfer.getData('text/plain') || '{}').sourceInventorySlot;
         const droppedSlot = this._getInventorySlotFromElement(event.target) || {};
         const currentInventory = FlagManager.getInventory(this.actor);
@@ -28,6 +31,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
             (this.actor.isToken && itemData.tokenId === this.actor.token.id));
         if (isNewItem) {
             Hooks.once('createOwnedItem', (actor, item) => {
+                if (disallowedItemTypes.includes(item.type)) {
+                    return;
+                }
                 if (!droppedSlot.slot) {
                     currentInventory.overflow.slots.push({
                         label: '',

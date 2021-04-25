@@ -1,3 +1,5 @@
+export const disallowedItemTypes = ['class', 'feat'];
+
 export function cleanInventory(player, inventory) {
     const cleanup = [
         removeDeadLinks,
@@ -16,7 +18,7 @@ function removeDeadLinks(player, inventory) {
             ...section,
             slots: section.slots.map(slot => ({
                 ...slot,
-                item: player.items.get(slot.item)
+                item: player.items.get(slot.item) && !disallowedItemTypes.includes(player.items.get(slot.item).type)
                     ? slot.item
                     : ''
             }))
@@ -40,6 +42,7 @@ function recoverOrphans(player, inventory) {
         return list.concat(inventory[key].slots)
     }, []).map(slot => slot.item);
     const orphanedItems = Array.from(player.items.values())
+        .filter(item => !disallowedItemTypes.includes(item.type))
         .map(item => item._id)
         .filter(item => !listifiedInventory.includes(item));
     return {
