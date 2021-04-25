@@ -18,11 +18,11 @@
     overflow: auto;
 }
 
-.inventory.slotted-inventory ol.inventory-list {
+.inventory.slotted-inventory ol.items-list {
     column-count: 3;
     column-width: 300px;
 }
 
-.inventory.slotted-inventory ol.inventory-list > li {
+.inventory.slotted-inventory ol.items-list > li {
     break-inside: avoid;
 }
