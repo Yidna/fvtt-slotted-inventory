@@ -1,4 +1,4 @@
-.inventory li.item > .item-slot-details {
+.inventory.slotted-inventory li.item > .item-slot-details {
     flex: none;
     max-width: 128px;
     text-align: right;
@@ -6,23 +6,23 @@
     padding-right: 1em;
 }
 
-.inventory li.item > .slot-placeholder {
+.inventory.slotted-inventory li.item > .slot-placeholder {
     height: 30px;
 }
 
-.inventory li.item > .item-name > h4 {
+.inventory.slotted-inventory li.item > .item-name > h4 {
     text-overflow: ellipsis;
 }
 
-.inventory div.item-list-wrapper {
+.inventory.slotted-inventory div.item-list-wrapper {
     overflow: auto;
 }
 
-.inventory ol.inventory-list {
+.inventory.slotted-inventory ol.inventory-list {
     column-count: 3;
     column-width: 300px;
 }
 
-.inventory ol.inventory-list > li {
+.inventory.slotted-inventory ol.inventory-list > li {
     break-inside: avoid;
 }
