@@ -14,9 +14,9 @@ Hooks.on('init', () => {
     ])
 });
 
-Hooks.on('ready', () => {
+Hooks.on('ready', async () => {
     const players = game.actors.entities.filter(actor => actor.data.type === 'character' && actor.owner);
-    players.forEach(player => migrate(player));
+    await Promise.all(players.map(player => migrate(player)));
     players.forEach(player => {
         const inventory = FlagManager.getInventory(player);
         FlagManager.setInventory(player, cleanInventory(player, inventory));

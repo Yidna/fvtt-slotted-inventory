@@ -1,4 +1,4 @@
-export const disallowedItemTypes = ['class', 'feat'];
+export const disallowedItemTypes = ['class', 'feat', 'spell'];
 
 export function cleanInventory(player, inventory) {
     const cleanup = [
