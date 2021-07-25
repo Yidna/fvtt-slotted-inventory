@@ -8,6 +8,12 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         return 'modules/fvtt-slotted-inventory/src/templates/character-sheet.html';
     }
 
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        html.find('.slotted-inventory-section-toggle').click((event) => this._toggleSection(event));
+    }
+
     _onDragStart(event) {
         super._onDragStart(event);
         const data = JSON.parse(event.dataTransfer.getData('text/plain'));
@@ -84,6 +90,14 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
             FlagManager.setInventory(this.actor, cleanInventory(this.actor, FlagManager.getInventory(this.actor)));
         });
         super._onItemDelete(event);
+    }
+
+    _toggleSection(event) {
+        const sectionElement = event.currentTarget.closest(".items-header");
+        const sectionKey = sectionElement.dataset.slottedInventorySection;
+        const currentInventory = FlagManager.getInventory(this.actor);
+        currentInventory[sectionKey].minimized = !currentInventory[sectionKey].minimized;
+        FlagManager.setInventory(this.actor, currentInventory);
     }
 
     getData() {
