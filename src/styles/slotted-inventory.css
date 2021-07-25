@@ -26,3 +26,12 @@
 .inventory.slotted-inventory ol.items-list > li {
     break-inside: avoid;
 }
+
+span.slotted-inventory-section-toggle {
+    cursor: pointer;
+    width: 1em;
+    height: 1em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    flex: 0;
+}

@@ -18,58 +18,63 @@
         {{#each sections as |section|}}
             <li>
                 <div class="items-header flexrow" data-slotted-inventory-section="{{@key}}">
+                    <span class="slotted-inventory-section-toggle">
+                        <i class="fas fa-chevron-{{#if section.minimized}}right{{else}}down{{/if}}"></i>
+                    </span>
                     <h3 class="item-name flexrow">{{localize section.label}}</h3>
                 </div>
+                {{#unless section.minimized}}
+                    <ol class="item-list">
+                        {{#each section.slots as |slot i|}} {{#with slot.item as |item|}} {{#if item}}
+                            <li class="item flexrow" data-item-id="{{item._id}}"
+                                data-slotted-inventory-section="{{@../key}}"
+                                data-slotted-inventory-slot="{{i}}"
+                            >
+                                <div class="item-name flexrow rollable">
+                                    <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+                                    <h4 title="{{item.name~}}">
+                                        {{item.name~}}
+                                        {{~#if item.isStack}} ({{item.data.quantity}}){{/if}}
+                                    </h4>
+                                    {{#if item.attunement}}
+                                        <div class="item-detail attunement">
+                                            <i class="fas {{item.attunement.icon}} {{item.attunement.cls}}"
+                                               title="{{localize item.attunement.title}}"></i>
+                                        </div>
+                                    {{/if}}
+                                </div>
 
-                <ol class="item-list">
-                    {{#each section.slots as |slot i|}} {{#with slot.item as |item|}} {{#if item}}
-                        <li class="item flexrow" data-item-id="{{item._id}}"
-                            data-slotted-inventory-section="{{@../key}}"
-                            data-slotted-inventory-slot="{{i}}"
-                        >
-                            <div class="item-name flexrow rollable">
-                                <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-                                <h4 title="{{item.name~}}">
-                                    {{item.name~}}
-                                    {{~#if item.isStack}} ({{item.data.quantity}}){{/if}}
-                                </h4>
-                                {{#if item.attunement}}
-                                    <div class="item-detail attunement">
-                                        <i class="fas {{item.attunement.icon}} {{item.attunement.cls}}"
-                                           title="{{localize item.attunement.title}}"></i>
+                                <div class="item-slot-details">
+                                    {{slot.label}} {{#if slot.size}}({{slot.size}}){{/if}}
+                                </div>
+
+                                {{#if ../../../owner}}
+                                    <div class="item-controls flexrow">
+                                        <a class="item-control item-toggle {{item.toggleClass}}"
+                                           title='{{item.toggleTitle}}'><i
+                                                class="fas fa-shield-alt"></i></a>
+                                        <a class="item-control item-edit" title='{{localize "DND5E.ItemEdit"}}'><i
+                                                class="fas fa-edit"></i></a>
+                                        <a class="item-control item-delete" title='{{localize "DND5E.ItemDelete"}}'><i
+                                                class="fas fa-trash"></i></a>
                                     </div>
                                 {{/if}}
-                            </div>
-
-                            <div class="item-slot-details">
-                                {{slot.label}} {{#if slot.size}}({{slot.size}}){{/if}}
-                            </div>
-
-                            {{#if ../../../owner}}
-                                <div class="item-controls flexrow">
-                                    <a class="item-control item-toggle {{item.toggleClass}}"
-                                       title='{{item.toggleTitle}}'><i
-                                            class="fas fa-shield-alt"></i></a>
-                                    <a class="item-control item-edit" title='{{localize "DND5E.ItemEdit"}}'><i
-                                            class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title='{{localize "DND5E.ItemDelete"}}'><i
-                                            class="fas fa-trash"></i></a>
+                            </li>
+                        {{/if}} {{else}}
+                            <li class="item flexrow"
+                                data-slotted-inventory-section="{{@../key}}"
+                                data-slotted-inventory-slot="{{i}}"
+                            >
+                                <div class="item-name slot-placeholder"></div>
+                                <div class="item-slot-details">
+                                    {{slot.label}} {{#if slot.size}}({{slot.size}}){{/if}}
                                 </div>
-                            {{/if}}
-                        </li>
-                    {{/if}} {{else}}
-                        <li class="item flexrow"
-                            data-slotted-inventory-section="{{@../key}}"
-                            data-slotted-inventory-slot="{{i}}"
-                        >
-                            <div class="item-name slot-placeholder"></div>
-                            <div class="item-slot-details">
-                                {{slot.label}} {{#if slot.size}}({{slot.size}}){{/if}}
-                            </div>
-                            <div class="item-controls"></div>
-                        </li>
-                    {{/with}} {{/each}}
-                </ol>
-            </li> {{/each}}
+                                <div class="item-controls"></div>
+                            </li>
+                        {{/with}} {{/each}}
+                    </ol>
+                {{/unless}}
+            </li>
+        {{/each}}
     </ol>
 </div>
