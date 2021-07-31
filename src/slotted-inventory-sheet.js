@@ -1,6 +1,7 @@
 import ActorSheet5eCharacter from '../../../systems/dnd5e/module/actor/sheets/character.js'
 import { FlagManager } from './flag-manager.js';
 import { cleanInventory, disallowedItemTypes } from './sanitation.js';
+import { QuickItemCreateDialog } from './quick-item-create-dialog.js';
 
 export class SlottedInventorySheet extends ActorSheet5eCharacter {
     get template() {
@@ -80,6 +81,16 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
             section: decoratedElement.dataset.slottedInventorySection,
             slot: decoratedElement.dataset.slottedInventorySlot
         };
+    }
+
+    _onItemCreate(event) {
+        const {section, slot} = this._getInventorySlotFromElement(event.target);
+        QuickItemCreateDialog.show(async (data) => {
+            const item = (await this.actor.createEmbeddedDocuments('Item', [data]))[0];
+            const currentInventory = FlagManager.getInventory(this.actor);
+            currentInventory[section].slots[slot].item = item._id;
+            FlagManager.setInventory(this.actor, currentInventory);
+        });
     }
 
     _onItemDelete(event) {
