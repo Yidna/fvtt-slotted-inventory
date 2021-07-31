@@ -36,7 +36,7 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         const isNewItem = !(itemData.actorId === this.actor._id ||
             (this.actor.isToken && itemData.tokenId === this.actor.token.id));
         if (isNewItem) {
-            Hooks.once('createOwnedItem', (actor, item) => {
+            Hooks.once('createItem', (item) => {
                 if (disallowedItemTypes.includes(item.type)) {
                     return;
                 }
