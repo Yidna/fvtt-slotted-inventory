@@ -14,6 +14,11 @@
     text-overflow: ellipsis;
 }
 
+.inventory.slotted-inventory li.item > .item-controls > .item-create {
+    margin-left: auto;
+    max-width: 33%;
+}
+
 .inventory.slotted-inventory div.item-list-wrapper {
     overflow: auto;
 }

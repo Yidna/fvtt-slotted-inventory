@@ -69,7 +69,12 @@
                                 <div class="item-slot-details">
                                     {{slot.label}} {{#if slot.size}}({{slot.size}}){{/if}}
                                 </div>
-                                <div class="item-controls"></div>
+                                <div class="item-controls flexrow">
+                                    {{#if ../../owner}}
+                                        <a class="item-control item-create" title='{{localize "DND5E.ItemCreate"}}'><i
+                                                class="fas fa-plus"></i></a>
+                                    {{/if}}
+                                </div>
                             </li>
                         {{/with}} {{/each}}
                     </ol>
