@@ -83,8 +83,8 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
     }
 
     _onItemDelete(event) {
-        Hooks.once('deleteOwnedItem', (actor) => {
-            if (actor.id !== this.actor.id) {
+        Hooks.once('deleteItem', (item) => {
+            if (item.parent.id !== this.actor.id) {
                 return;
             }
             FlagManager.setInventory(this.actor, cleanInventory(this.actor, FlagManager.getInventory(this.actor)));
