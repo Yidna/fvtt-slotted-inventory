@@ -1,7 +1,8 @@
 import ActorSheet5eCharacter from '../../../systems/dnd5e/module/actor/sheets/character.js'
 import { FlagManager } from './flag-manager.js';
-import { cleanInventory, disallowedItemTypes } from './sanitation.js';
+import { disallowedItemTypes } from './sanitation.js';
 import { QuickItemCreateDialog } from './quick-item-create-dialog.js';
+import { InventoryTransaction } from './inventory-transaction.js';
 
 export class SlottedInventorySheet extends ActorSheet5eCharacter {
     get template() {
@@ -33,7 +34,6 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         }
         const sourceSlot = JSON.parse(event.dataTransfer.getData('text/plain') || '{}').sourceInventorySlot;
         const droppedSlot = this._getInventorySlotFromElement(event.target) || {};
-        const currentInventory = FlagManager.getInventory(this.actor);
         const isNewItem = !(itemData.actorId === this.actor._id ||
             (this.actor.isToken && itemData.tokenId === this.actor.token.id));
         if (isNewItem) {
@@ -42,32 +42,21 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
                     return;
                 }
                 if (!droppedSlot.slot) {
-                    currentInventory.overflow.slots.push({
-                        label: '',
-                        size: '',
-                        item: item._id
-                    });
-                    FlagManager.setInventory(this.actor, currentInventory);
+                    const inventoryTransaction = new InventoryTransaction(this.actor);
+                    inventoryTransaction.addOverflow(item._id);
+                    inventoryTransaction.commit();
                 }
                 else {
-                    const currentSlotItem = currentInventory[droppedSlot.section].slots[droppedSlot.slot].item;
-                    if (currentSlotItem) {
-                        currentInventory.overflow.slots.push({
-                            label: '',
-                            size: '',
-                            item: currentSlotItem
-                        });
-                    }
-                    currentInventory[droppedSlot.section].slots[droppedSlot.slot].item = item._id;
-                    FlagManager.setInventory(this.actor, currentInventory);
+                    const inventoryTransaction = new InventoryTransaction(this.actor);
+                    inventoryTransaction.addItem(droppedSlot.section, droppedSlot.slot, item._id);
+                    inventoryTransaction.commit();
                 }
             })
         }
         else if (droppedSlot.slot) {
-            const currentSlotItem = currentInventory[droppedSlot.section].slots[droppedSlot.slot].item;
-            currentInventory[droppedSlot.section].slots[droppedSlot.slot].item = currentInventory[sourceSlot.section].slots[sourceSlot.slot].item;
-            currentInventory[sourceSlot.section].slots[sourceSlot.slot].item = currentSlotItem;
-            FlagManager.setInventory(this.actor, cleanInventory(this.actor, currentInventory));
+            const inventoryTransaction = new InventoryTransaction(this.actor);
+            inventoryTransaction.swapItems(droppedSlot.section, droppedSlot.slot, sourceSlot.section, sourceSlot.slot);
+            inventoryTransaction.commit();
         }
         return super._onDropItem(event, itemData);
     }
@@ -87,9 +76,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         const {section, slot} = this._getInventorySlotFromElement(event.target);
         QuickItemCreateDialog.show(async (data) => {
             const item = (await this.actor.createEmbeddedDocuments('Item', [data]))[0];
-            const currentInventory = FlagManager.getInventory(this.actor);
-            currentInventory[section].slots[slot].item = item._id;
-            FlagManager.setInventory(this.actor, currentInventory);
+            const inventoryTransaction = new InventoryTransaction(this.actor);
+            inventoryTransaction.addItem(section, slot, item._id);
+            inventoryTransaction.commit();
         });
     }
 
@@ -98,7 +87,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
             if (item.parent.id !== this.actor.id) {
                 return;
             }
-            FlagManager.setInventory(this.actor, cleanInventory(this.actor, FlagManager.getInventory(this.actor)));
+            const inventoryTransaction = new InventoryTransaction(this.actor);
+            inventoryTransaction.sanitize();
+            inventoryTransaction.commit();
         });
         super._onItemDelete(event);
     }
@@ -106,9 +97,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
     _toggleSection(event) {
         const sectionElement = event.currentTarget.closest(".items-header");
         const sectionKey = sectionElement.dataset.slottedInventorySection;
-        const currentInventory = FlagManager.getInventory(this.actor);
-        currentInventory[sectionKey].minimized = !currentInventory[sectionKey].minimized;
-        FlagManager.setInventory(this.actor, currentInventory);
+        const inventoryTransaction = new InventoryTransaction(this.actor);
+        inventoryTransaction.toggleSection(sectionKey);
+        inventoryTransaction.commit();
     }
 
     getData() {
