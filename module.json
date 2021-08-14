@@ -2,7 +2,7 @@
 	"name": "fvtt-slotted-inventory",
 	"title": "Slotted Inventory",
 	"description": "This module provides an alternative character sheet with a slotted inventory system",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"minimumCoreVersion": "0.7.9",
 	"compatibleCoreVersion": "0.8.8",
 	"author": "Yidna",

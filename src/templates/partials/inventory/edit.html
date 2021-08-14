@@ -1,0 +1,51 @@
+{{#each sections as |section|}}
+    <li>
+        <div class="items-header flexrow" data-slotted-inventory-section="{{@key}}">
+            <a class="slotted-inventory-section-toggle">
+                <i class="fas fa-chevron-{{#if section.minimized}}right{{else}}down{{/if}}"></i>
+            </a>
+            <h3 class="item-name flexrow">{{localize section.label}}</h3>
+            {{#unless (eq @key 'overflow')}}
+                <div class="section-controls flexrow">
+                    <a title="{{localize "Edit Label"}}" class="slotted-inventory-section-edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a title="{{localize "Add Slot"}}" class="slotted-inventory-section-add-slot">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+            {{/unless}}
+        </div>
+        {{#unless section.minimized}}
+            <ol class="item-list">
+                {{#each section.slots as |slot i|}}
+                    <li class="item flexrow"
+                        data-slotted-inventory-section="{{@../key}}"
+                        data-slotted-inventory-slot="{{i}}"
+                    >
+                        <div class="item-name {{#if slot.item}}flexrow{{else}}slot-placeholder{{/if}}">
+                            {{#if slot.item}}<div class="item-image" style="background-image: url('{{slot.item.img}}')"></div>{{/if}}
+                            <h4 title="{{slot.label}}">
+                                {{slot.label}}
+                            </h4>
+                        </div>
+                        <div class="item-slot-details">
+                            {{#if slot.size}}({{slot.size}}){{/if}}
+                        </div>
+
+                        {{#unless (eq @../key 'overflow')}}
+                            <div class="item-controls flexrow">
+                                <a class="item-control slot-edit" title="{{localize "Edit Slot"}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="item-control slot-delete" title="{{localize "Delete Slot"}}">
+                                    <i class="fas fa-minus"></i>
+                                </a>
+                            </div>
+                        {{/unless}}
+                    </li>
+                {{/each}}
+            </ol>
+        {{/unless}}
+    </li>
+{{/each}}

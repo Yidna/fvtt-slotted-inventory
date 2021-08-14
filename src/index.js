@@ -10,7 +10,9 @@ Actors.registerSheet('dnd5e', SlottedInventorySheet, {
 
 Hooks.on('init', () => {
     loadTemplates([
-        'modules/fvtt-slotted-inventory/src/templates/partials/actor-inventory.html'
+        'modules/fvtt-slotted-inventory/src/templates/partials/actor-inventory.html',
+        'modules/fvtt-slotted-inventory/src/templates/partials/inventory/view.html',
+        'modules/fvtt-slotted-inventory/src/templates/partials/inventory/edit.html'
     ])
 });
 
