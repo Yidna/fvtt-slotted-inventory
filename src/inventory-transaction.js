@@ -12,12 +12,21 @@ export class InventoryTransaction {
         this.inventory[section].minimized = !this.inventory[section].minimized;
     }
 
+    renameSection(section, label) {
+        this.inventory[section].label = label;
+    }
+
     getSlot(section, slot) {
         return this.inventory[section].slots[slot].item;
     }
 
     setSlot(section, slot, itemId) {
         this.inventory[section].slots[slot].item = itemId;
+    }
+
+    editSlot(section, slot, label, size) {
+        this.inventory[section].slots[slot].label = label;
+        this.inventory[section].slots[slot].size = size;
     }
 
     addItem(section, slot, itemId) {
