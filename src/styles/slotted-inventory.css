@@ -22,6 +22,10 @@
     max-width: 33%;
 }
 
+.inventory.slotted-inventory li.item > .item-controls > .slot-edit{
+    margin-left: 33%;
+}
+
 .inventory.slotted-inventory div.item-list-wrapper {
     overflow: auto;
 }
@@ -35,14 +39,21 @@
     break-inside: avoid;
 }
 
-span.slotted-inventory-section-toggle,
-span.slotted-inventory-section-edit {
-    cursor: pointer;
+.slotted-inventory-section-toggle {
     width: 1em;
     height: 1em;
     padding-left: 0.2em;
     padding-right: 0.2em;
     flex: 0;
+}
+
+.section-controls {
+    flex: 0 0 68px;
+    justify-content: space-between;
+}
+
+.slotted-inventory-section-edit {
+    margin-left: 33%;
 }
 
 .slotted-inventory-footer {

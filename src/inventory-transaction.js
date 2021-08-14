@@ -1,5 +1,6 @@
 import { FlagManager } from './flag-manager.js';
 import { cleanInventory } from './sanitation.js';
+import { Slot } from './slot.js';
 
 export class InventoryTransaction {
 
@@ -16,11 +17,15 @@ export class InventoryTransaction {
         this.inventory[section].label = label;
     }
 
-    getSlot(section, slot) {
+    addSlot(section) {
+        this.inventory[section].slots.push(new Slot());
+    }
+
+    getItem(section, slot) {
         return this.inventory[section].slots[slot].item;
     }
 
-    setSlot(section, slot, itemId) {
+    setItem(section, slot, itemId) {
         this.inventory[section].slots[slot].item = itemId;
     }
 
@@ -29,12 +34,20 @@ export class InventoryTransaction {
         this.inventory[section].slots[slot].size = size;
     }
 
+    deleteSlot(section, slot) {
+        const item = this.inventory[section].slots[slot].item;
+        this.inventory[section].slots.splice(slot, 1);
+        if (item) {
+            this.addOverflow(item);
+        }
+    }
+
     addItem(section, slot, itemId) {
-        const currentSlotItem = this.getSlot(section, slot);
+        const currentSlotItem = this.getItem(section, slot);
         if (currentSlotItem) {
             this.addOverflow(currentSlotItem);
         }
-        this.setSlot(section, slot, itemId);
+        this.setItem(section, slot, itemId);
     }
 
     swapItems(section0, slot0, section1, slot1) {
@@ -45,11 +58,7 @@ export class InventoryTransaction {
     }
 
     addOverflow(itemId) {
-        this.inventory.overflow.slots.push({
-            label: '',
-            size: '',
-            item: itemId
-        });
+        this.inventory.overflow.slots.push(new Slot('', '', itemId));
     }
 
     sanitize() {

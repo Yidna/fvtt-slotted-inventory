@@ -5,6 +5,7 @@ import { QuickItemCreateDialog } from './dialogs/quick-item-create-dialog.js';
 import { InventoryTransaction } from './inventory-transaction.js';
 import { RenameDialog } from './dialogs/rename-dialog.js';
 import { EditSlotDialog } from './dialogs/edit-slot-dialog.js';
+import { DeleteSlotDialog } from './dialogs/delete-slot-dialog.js';
 
 export class SlottedInventorySheet extends ActorSheet5eCharacter {
     get template() {
@@ -18,7 +19,9 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         html.find('.slotted-inventory-section-toggle').click(event => this._toggleSection(event));
         html.find('.slotted-inventory-edit-toggle').click(event => this._toggleEdit(event));
         html.find('.slotted-inventory-section-edit').click(event => this._editSectionName(event));
+        html.find('.slotted-inventory-section-add-slot').click(event => this._addSectionSlot(event));
         html.find('.slot-edit').click(event => this._editSlot(event));
+        html.find('.slot-delete').click(event => this._deleteSlot(event));
     }
 
     _onDragStart(event) {
@@ -115,11 +118,24 @@ export class SlottedInventorySheet extends ActorSheet5eCharacter {
         RenameDialog.show(this.actor, section, label);
     }
 
+    _addSectionSlot(event) {
+        const sectionElement = event.currentTarget.closest(".items-header");
+        const section = sectionElement.dataset.slottedInventorySection;
+        const inventoryTransaction = new InventoryTransaction(this.actor);
+        inventoryTransaction.addSlot(section);
+        inventoryTransaction.commit();
+    }
+
     _editSlot(event) {
         const { section, slot } = this._getInventorySlotFromElement(event.currentTarget.closest('.item'));
         const inventory = FlagManager.getInventory(this.actor);
         const { label, size } = inventory[section].slots[slot];
         EditSlotDialog.show(this.actor, section, slot, label, size);
+    }
+
+    _deleteSlot(event) {
+        const { section, slot } = this._getInventorySlotFromElement(event.currentTarget.closest('.item'));
+        DeleteSlotDialog.show(this.actor, section, slot);
     }
 
     _toggleEdit() {

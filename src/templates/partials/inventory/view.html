@@ -1,9 +1,9 @@
 {{#each sections as |section|}}
     <li>
         <div class="items-header flexrow" data-slotted-inventory-section="{{@key}}">
-                    <span class="slotted-inventory-section-toggle">
-                        <i class="fas fa-chevron-{{#if section.minimized}}right{{else}}down{{/if}}"></i>
-                    </span>
+            <a class="slotted-inventory-section-toggle">
+                <i class="fas fa-chevron-{{#if section.minimized}}right{{else}}down{{/if}}"></i>
+            </a>
             <h3 class="item-name flexrow">{{localize section.label}}</h3>
         </div>
         {{#unless section.minimized}}

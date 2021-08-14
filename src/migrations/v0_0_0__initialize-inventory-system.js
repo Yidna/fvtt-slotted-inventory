@@ -1,4 +1,5 @@
 import { FlagManager } from '../flag-manager.js';
+import { Slot } from '../slot.js';
 
 export async function v0_0_0(player) {
     const defaultInventory = {
@@ -98,16 +99,4 @@ export async function v0_0_0(player) {
     return FlagManager.setVersion(player, '0.0.1').then(player =>
         FlagManager.setInventory(player, defaultInventory)
     );
-}
-
-class Slot {
-    label;
-    size;
-    item;
-
-    constructor(label = '', size = '', item = '') {
-        this.label = label;
-        this.size = size;
-        this.item = item;
-    }
 }
