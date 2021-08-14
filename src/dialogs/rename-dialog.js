@@ -20,5 +20,4 @@ export class RenameDialog {
             rejectClose: false
         })
     }
-
 }

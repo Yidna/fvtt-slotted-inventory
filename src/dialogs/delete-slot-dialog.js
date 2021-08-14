@@ -15,5 +15,4 @@ export class DeleteSlotDialog {
             defaultYes: false
         })
     }
-
 }
